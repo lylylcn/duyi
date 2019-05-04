@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        浏览器有一个跟重要的概念---同源策略，就是指域名，协议，端口相同，不同源的客户端脚本在没明确授权的情况下，不能被对方访问
+
+        裸域只能绑定a记录，也就说只能一个域名绑定一个ip地址
+        裸域的cookie作用域范围大
+
+        1.浏览器通过DNS域名解析到服务器IP
+        2.客户端（浏览器）通过TCP协议建立到服务器的TCP连接(三次握手)
+            (1)先client端发送连接，请求报文 
+            (2)Server端接收连接后回复ACK报文，并为这次连接分配资源
+            (3)client端接收到ACK报文后也向Server端发送ACK报文，并分配资源，这样TCP连接就建立了
+        3.客户端（浏览器）向web服务器端（HTTP服务器）发送HTTP协议包，请求服务器里的资源文档（telnet）
+        4.服务器向客户端发送HTTP协议应答包
+        5.客户端和服务器断开（四次挥手），客户端开始解释处理HTML文档
+            （1）client端发起中断连接请求，也就是发送FIN报文，Server端接到FIN报文后
+            （2）server发送ACK，告诉client，你的请求我收到了，但是我还没准备好，请继续等我的消息，这个时候client就进入FIN_WAIT状态，继续等待server端的FIN报文
+            （3）当server端确定数据已发送完成，则向client端发送FIN报文，告诉client端，我这边数据发完了，准备关闭连接了
+            （4）client端收到FIN报文后，就知道可以关闭连接了，但是为了确定，就发送ACK后进入FIN_WAIT状态，如果server端没有收到ACK则可以重传，server端收到ACK后，就知道可以断开连接了，client端等待了2msl后依然没有收到回复，则证明server端已经关闭，那么，client端也可以关闭连接了
+        
+        HTTP 请求方式GET POST 区别
+        1.get使用URL或cookie传参，而post将数据，放在body中。？name=Bob&age=18
+        2.get的URL会有长度上的限制，post可以传输很多数据（但是为了服务器安全考虑post的长度也有限制，但是依旧比get长很多）
+        3.post比get安全
+
+        浏览器缓存机制（http）
+        304上次缓存的资源没有改变------浏览器如何在知道是否直接取缓存的内容
+        请求头 响应头
+        请求头：
+        if-None-Match :匹配etag 如果它修改过了 不取缓存
+        if-Modified-Since: 将先前服务器端发过来的最后修改事件戳发送回去
+        响应头：
+        etag  ---  ->标记图片资源
+        last-Modified （服务器最后修改的时间）和etag配合使用
+
+        什么是cookie？
+        cookie是由服务器端生成，发送给User-Agent（一般是浏览器），（服务器告诉浏览器设置一下cookie），浏览器会将Cookie以key/value保存到某个目录下的文本文件内，下次请求同一个网站时就发送该cookie给服务器（前提是浏览器设置为启用cookie）
+        cookie就是一个小型文件（浏览器对cookie的内存大小是有限制的）
+
+        1.标记用户身份的http请求头部：
+          form：e-mail
+          user-agen：浏览器
+          referer：跳转连接
+        2.Ip地址
+        3.用户登录
+        4.胖url 只存在在窗口没关闭时，一旦关闭就不能标记
+        5.cookie 
+            （1）会话cookie 
+            （2）永久cookie
+            大小：4K左右
+
+        iframe 内联框架   阻塞页面加载
+         获取子窗口 
+         1.document.getElementsByTagName('iframe')[0].contentWindow
+         2.document.getElementsById('id').contentWindow
+         简易写法
+         window.frames['iframe的name']
+         IE专用
+         3.document.iframes[name].contentWindow
+         4.document.iframe[i].contentWindow
+
+         window.self
+         window.parent
+         window.top
+
+        父子窗口通信
+        父访问子（等待iframe加载完成后可以通过）
+        iframe.contentWindow变量 访问也会涉及跨域问题
+
+        子访问父涉及跨域问题
+
+        跨域问题
+        location.hash
+        window.name
+     -->
+     <iframe src="https://www.baidu.com" frameborder="1"></iframe>
+     <script>
+        
+     </script>
+</body>
+</html>

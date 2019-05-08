@@ -78,10 +78,54 @@
         跨域问题
         location.hash
         window.name
-     -->
-     <iframe src="https://www.baidu.com" frameborder="1"></iframe>
-     <script>
+
+        防抖节流
+        在前端开发中有一部分的用户行为会频繁的触发时间，执行，而对DOM操作，资源加载等耗费性能的处理，
+        很可能导致界面卡顿，甚至浏览器的崩溃。函数节流（throttle）和函数防抖（debounce）就是为了解决类似需求应运而生的
         
+        函数防抖就是在函数需要频繁触发情况时，只有足够空闲时间，才执行一次
+        1.实时搜索
+        2.窗口调整
+
+        函数节流就是预定一个函数只有大于等于执行周期时才执行，周期内调用不执行
+        1.页面滚动 scroll
+        2.抢购疯狂点击 mousedown
+        3.拖拽 mousemove
+    -->
+    <div id="box" style="width:100px;height:100px;background:red;">1</div>
+     <!-- <iframe src="https://www.baidu.com" frameborder="1"></iframe> -->
+     <script>
+        var box = document.getElementById('box');
+        box.onmousemove = throttle(function() {
+             this.innerText ++;
+        },100)
+
+        // 时间戳写法
+        // function throttle(func, wait) {
+        //     var lastTime = 0;
+        //     return function() {
+        //         var now = +new Date(); //获取当前时间戳
+        //         if(now - lastTime > wait){
+        //             func.call(this,arguments[0]);
+        //             lastTime = now;
+        //         }
+        //     }
+        // }
+
+        // 计时器写法
+        function throttle(func,wait) {
+            var timer = null;
+            return function () {
+                var argu = arguments[0],
+                    that = this;
+                if(!timer) {
+                     timer =setTimeout(function() {
+                        func.call(that,argu);
+                        timer = null;
+                    },wait);
+                }
+            }
+        }
      </script>
 </body>
 </html>

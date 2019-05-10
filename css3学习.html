@@ -3,6 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>css3学习</title>
+    <style>
+        /* *{
+            margin:0;
+            padding:0;
+        }
+        .wrapper{
+            margin:0 auto;
+            width:100px;
+            text-align: center;
+        }
+        .wrapper div{
+            position: absolute;
+            width:100px;
+            height:100px;
+            text-align: center;
+            line-height: 100px;
+            display: none;
+        }
+        div :nth-of-type(1){
+            background: green;
+        }
+        div :nth-of-type(2){
+            background: red;
+        }
+        div :nth-of-type(3){
+            background: pink;
+        }
+        input:checked + div{
+            display: block;
+        } */
+        /* *{
+            margin:0;
+            padding:0;
+        }
+        .box{
+            position: relative;
+            width:200px;
+            height:200px;
+            border-radius:50%;
+            border:1px solid #000;
+        }
+        ul{
+            width:100%;
+            height:100%;
+        }
+        li{
+            position: absolute;
+            top:0;
+            left:50%;
+            display: inline-block;
+            transform-origin: 50% 100px;
+        }
+        span{
+            display: inline-block;
+        }
+        li:nth-of-type(2){            
+            transform: rotate(30deg);
+        }
+        li:nth-of-type(2) span{
+            transform: rotate(-30deg);
+        }
+        li:nth-of-type(3){            
+            transform: rotate(60deg);
+        }
+        li:nth-of-type(3) span{
+            transform: rotate(-60deg);
+        }
+        li:nth-of-type(4){            
+            transform: rotate(90deg);
+        }
+        li:nth-of-type(4) span{
+            transform: rotate(-90deg);
+        }
+        li:nth-of-type(5){            
+            transform: rotate(120deg);
+        }
+        li:nth-of-type(5) span{
+            transform: rotate(-120deg);
+        }
+        li:nth-of-type(6){            
+            transform: rotate(150deg);
+        }
+        li:nth-of-type(6) span{
+            transform: rotate(-150deg);
+        }
+        li:nth-of-type(7){            
+            transform: rotate(180deg);
+        }
+        li:nth-of-type(7) span{
+            transform: rotate(-180deg);
+        }
+        li:nth-of-type(8){            
+            transform: rotate(-150deg);
+        }
+        li:nth-of-type(8) span{
+            transform: rotate(150deg);
+        }
+        li:nth-of-type(9){            
+            transform: rotate(-120deg);
+        }
+        li:nth-of-type(9) span{
+            transform: rotate(120deg);
+        }
+        li:nth-of-type(10){            
+            transform: rotate(-90deg);
+        }
+        li:nth-of-type(10) span{
+            transform: rotate(90deg);
+        }
+        li:nth-of-type(11){            
+            transform: rotate(-60deg);
+        }
+        li:nth-of-type(11) span{
+            transform: rotate(60deg);
+        }
+        li:nth-of-type(12){            
+            transform: rotate(-30deg);
+        }
+        li:nth-of-type(12) span{
+            transform: rotate(30deg);
+        } */
     </style>
 </head>
 <body>
@@ -39,7 +160,83 @@
             chrome专有
         11.background-size:auto(默认)|<长度值>|<百分比>|cover(充满整个区域)|contain(保证图片全部出现在)
         12.background-position:x,y;
-    -->
 
+        css3选择器
+        属性选择器[]  elem[attr^='la'] elem[attr$='la'] elem[attr*='la']
+        伪元素选择器
+        伪类选择器 link hover active 
+            root(选择整个文档,等同于选择<html>元素) not (不要某个元素)
+            empty (空标签选择器 选择内容是空的选择器,通过伪元素添加的文本不算)  target (目标元素选择器) 
+            first-child 
+            last-child
+            nth-child(数字，even,odd，2n+1,2n)
+            nth-last-child()
+            同一类型
+            first-of-type 
+            last-of-type
+            nth-child-type()
+            nth-last-child-type()
+            only-child 唯一的子元素
+            only-of-type
+
+            enable 没被禁用的
+            disable 被禁用的
+            checked
+            read-only 选择只读的元素（readonly）
+            read-write 选中非只读的元素
+
+            first-letter
+            first-line
+            selection 用鼠标滑动选中的元素
+
+            E > F 直接子元素 不能找孙子
+            E + F 后面紧挨着的兄弟节点 
+            E ~ F 后面的兄弟节点
+
+        css3动画
+        transform 
+            旋转
+            rotateX/Y/Z(angle);
+            rotate3D(x,y,z,angle);以x,y,z三个轴合力做angle角度的旋转 与拆开写不同
+            缩放  绝对值<1 缩小 ，绝对值>1 放大 
+            scaleX/Y/Z(num); 
+            scale(xNum,yNum)默认情况
+            scale3D(xNum,yNum,zNum) 与拆开写相同
+            扭曲
+            skewX/Y(angle)
+            skew(xAngle,yAngle);
+            平移
+            translateX/Y/Z(像素/百分比);
+            translate3D(x像素,y像素,z像素);
+
+            transform-origin(left/right/top/bottom/center/百分比,)改变旋转中心点
+        transtion：过渡动画 (transtion-property[css属性],transtion-duration[过度需要的时间]，transtion-timing-function[过度函数/linear/ease/ease-in/ease-in-out/ease-out],transtion-delay[延迟时间]);
+
+        animation
+        -->
+    <!-- <div class="wrapper">
+        <input type="radio" name='a' checked>
+        <div>1</div>
+        <input type="radio" name='a'>
+        <div>2</div>
+        <input type="radio" name='a'>
+        <div>3</div>
+    </div> -->
+    <!-- <div class="box">
+        <ul>
+            <li><span>12</span></li>
+            <li><span>1</span></li>
+            <li><span>2</span></li>
+            <li><span>3</span></li>
+            <li><span>4</span></li>
+            <li><span>5</span></li>
+            <li><span>6</span></li>
+            <li><span>7</span></li>
+            <li><span>8</span></li>
+            <li><span>9</span></li>
+            <li><span>10</span></li>
+            <li><span>11</span></li>
+        </ul>
+    </div> -->
 </body>
 </html>

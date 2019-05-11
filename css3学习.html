@@ -211,9 +211,49 @@
 
             transform-origin(left/right/top/bottom/center/百分比,)改变旋转中心点
         transtion：过渡动画 (transtion-property[css属性],transtion-duration[过度需要的时间]，transtion-timing-function[过度函数/linear/ease/ease-in/ease-in-out/ease-out],transtion-delay[延迟时间]);
+        animation （动画关键帧）:关键帧名字(name),完成所需要时间(duration),运动函数(timing-function),延迟(delay),运动方向(direction),运动次数(iteration-count),动画结束后停下的状态(fill-mode),运动是否正在运行或已暂停(play-state);
 
-        animation
-        -->
+        columns 多列布局:colums-count(列数) columns-width(每列的宽度)
+        列之间的缝隙是一个字体的宽度
+        columns-gap（列之间的缝隙）
+        columns-rule:(可以在缝隙之间划线，类似于border)width style color;
+        columns-span:指定某个元素应该跨越多少列，可以用于设置标题(火狐不支持)1/all
+
+        盒模型:w3c width=content
+               怪异模式 width=content + padding + border
+        box-sizing:border-box(怪异模式)/content-box(w3c)
+        
+        弹性盒子
+            display:flex 设置该属性的盒子叫flex容器，盒子里的内容叫flex项目
+            默认情况下主轴相当于x轴，侧轴（又叫交叉轴）相当于y轴
+            设置在项目上的属性：
+            flex-grow:num  设置项目大小比例
+            三列布局：左侧定宽，右侧定宽，中间自适应(中间可以用flex-grew:1)
+            flex-shrink:num  超出部分按num比例砍掉，不写的话也会自动设置值默认是1
+            flex-basis（主轴）:num 权重大于width height
+            order:num 项目按照num大小进行排序
+            align-self:flex-end/flex-start/center/baseline/stretch  单个项目在侧轴上的排列位置
+            设置在容器上的属性：
+            flex-direction:决定主轴方向 row/row-reverse/columns/column-reverse
+            flex-wrap:决定超出是否换行nowrap不换行/wrap换行/wrap-reverse换行，第一行在下方
+            flex-flow:flex-direction  flex-wrap(默认是row nowrap)
+            justify-content:在主轴上的排列方式flex-start/flex-end/center/space-between两端对齐，中间相等/space-around每个项目左右两边的间隔,相当于magin-left=margin-right
+            align-items:每个项目在侧轴上的排列方式 flex-start/flex-end/center/baseline/stretch
+            align-content:多根轴线排列方式 flex-start/flex-end/center/space-between/space-around
+        
+        响应式布局
+            媒体查询：向不同设备提供不同样式的一种方式，它为每种类型的用户提供了最佳的体验
+            css2 media type
+            css3 media query 
+            媒体查询的样式方法：link标签 media='媒体类型(all/screen)and媒体特性(width渲染宽度/device-width设备宽度)'
+                               @import
+                               css3新增的@media
+            逻辑运算符 and与 ,或 not非 only 
+            
+
+
+    
+    -->
     <!-- <div class="wrapper">
         <input type="radio" name='a' checked>
         <div>1</div>

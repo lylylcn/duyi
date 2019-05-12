@@ -3,128 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>css3学习</title>
-    <style>
-        /* *{
-            margin:0;
-            padding:0;
-        }
-        .wrapper{
-            margin:0 auto;
-            width:100px;
-            text-align: center;
-        }
-        .wrapper div{
-            position: absolute;
-            width:100px;
-            height:100px;
-            text-align: center;
-            line-height: 100px;
-            display: none;
-        }
-        div :nth-of-type(1){
-            background: green;
-        }
-        div :nth-of-type(2){
-            background: red;
-        }
-        div :nth-of-type(3){
-            background: pink;
-        }
-        input:checked + div{
-            display: block;
-        } */
-        /* *{
-            margin:0;
-            padding:0;
-        }
-        .box{
-            position: relative;
-            width:200px;
-            height:200px;
-            border-radius:50%;
-            border:1px solid #000;
-        }
-        ul{
-            width:100%;
-            height:100%;
-        }
-        li{
-            position: absolute;
-            top:0;
-            left:50%;
-            display: inline-block;
-            transform-origin: 50% 100px;
-        }
-        span{
-            display: inline-block;
-        }
-        li:nth-of-type(2){            
-            transform: rotate(30deg);
-        }
-        li:nth-of-type(2) span{
-            transform: rotate(-30deg);
-        }
-        li:nth-of-type(3){            
-            transform: rotate(60deg);
-        }
-        li:nth-of-type(3) span{
-            transform: rotate(-60deg);
-        }
-        li:nth-of-type(4){            
-            transform: rotate(90deg);
-        }
-        li:nth-of-type(4) span{
-            transform: rotate(-90deg);
-        }
-        li:nth-of-type(5){            
-            transform: rotate(120deg);
-        }
-        li:nth-of-type(5) span{
-            transform: rotate(-120deg);
-        }
-        li:nth-of-type(6){            
-            transform: rotate(150deg);
-        }
-        li:nth-of-type(6) span{
-            transform: rotate(-150deg);
-        }
-        li:nth-of-type(7){            
-            transform: rotate(180deg);
-        }
-        li:nth-of-type(7) span{
-            transform: rotate(-180deg);
-        }
-        li:nth-of-type(8){            
-            transform: rotate(-150deg);
-        }
-        li:nth-of-type(8) span{
-            transform: rotate(150deg);
-        }
-        li:nth-of-type(9){            
-            transform: rotate(-120deg);
-        }
-        li:nth-of-type(9) span{
-            transform: rotate(120deg);
-        }
-        li:nth-of-type(10){            
-            transform: rotate(-90deg);
-        }
-        li:nth-of-type(10) span{
-            transform: rotate(90deg);
-        }
-        li:nth-of-type(11){            
-            transform: rotate(-60deg);
-        }
-        li:nth-of-type(11) span{
-            transform: rotate(60deg);
-        }
-        li:nth-of-type(12){            
-            transform: rotate(-30deg);
-        }
-        li:nth-of-type(12) span{
-            transform: rotate(30deg);
-        } */
-    </style>
 </head>
 <body>
     <!-- 
@@ -210,6 +88,12 @@
             translate3D(x像素,y像素,z像素);
 
             transform-origin(left/right/top/bottom/center/百分比,)改变旋转中心点
+            
+            transform-style:perserve-3D;
+            perspective:600px; 景深
+            perspective-origin:left/center/right/length/%,top/center/bottom/length/%   默认值(50%,50%)
+            backface-visibility（设置元素背面是否隐藏）:hidden
+            
         transtion：过渡动画 (transtion-property[css属性],transtion-duration[过度需要的时间]，transtion-timing-function[过度函数/linear/ease/ease-in/ease-in-out/ease-out],transtion-delay[延迟时间]);
         animation （动画关键帧）:关键帧名字(name),完成所需要时间(duration),运动函数(timing-function),延迟(delay),运动方向(direction),运动次数(iteration-count),动画结束后停下的状态(fill-mode),运动是否正在运行或已暂停(play-state);
 
@@ -227,7 +111,7 @@
             display:flex 设置该属性的盒子叫flex容器，盒子里的内容叫flex项目
             默认情况下主轴相当于x轴，侧轴（又叫交叉轴）相当于y轴
             设置在项目上的属性：
-            flex-grow:num  设置项目大小比例
+            flex-grow:num  设置项目按怎样的大小比例分配剩余空间
             三列布局：左侧定宽，右侧定宽，中间自适应(中间可以用flex-grew:1)
             flex-shrink:num  超出部分按num比例砍掉，不写的话也会自动设置值默认是1
             flex-basis（主轴）:num 权重大于width height
@@ -250,33 +134,36 @@
                                css3新增的@media
             逻辑运算符 and与 ,或 not非 only 
             
+        
+        物理像素：
+        独立像素
+        设备像素比 dpx
 
+        浏览器渲染原理：
+            1.处理HTML生成DOM树
+            2.处理CSS生成CSS树
+            3.将两树合并成render树
+            4.对render树进行布局计算
+            5.将render树中的每一个节点‘绘制’到屏幕上
+            回流/重排：
+            我们计算他们在当前设备中准确的位置和尺寸，这是布局阶段要做的工作，称为回流。当render tree中的一部分因为元素的规模尺寸，布局，隐藏等改变而需要重新构建，也会回流
+            重绘：
+            当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局，比如background-color
+            重排，重绘会影响性能
+            在饼状图中，蓝色：网络通信和HTML解析
+                       黄色：JavaScript执行
+                       紫色：样式计算和布局，即重排
+                       绿色：重绘
+        css3性能优化：尽可能多的利用硬件能力，如使用3D变形来开启GPU加速 transform:translate3d(x,y,z)
+                     如果动画过程又闪烁（通常发生在动画开始的时候），可以尝试使用backface-visitility:hidden; perspective:1000;
+                     尽可能少的使用box-shadows  gradients 影响性能
+                     尽可能的让动画元素不再文档流中，以减少重排
+                     优化DOM reflow 
+
+        
+        
 
     
     -->
-    <!-- <div class="wrapper">
-        <input type="radio" name='a' checked>
-        <div>1</div>
-        <input type="radio" name='a'>
-        <div>2</div>
-        <input type="radio" name='a'>
-        <div>3</div>
-    </div> -->
-    <!-- <div class="box">
-        <ul>
-            <li><span>12</span></li>
-            <li><span>1</span></li>
-            <li><span>2</span></li>
-            <li><span>3</span></li>
-            <li><span>4</span></li>
-            <li><span>5</span></li>
-            <li><span>6</span></li>
-            <li><span>7</span></li>
-            <li><span>8</span></li>
-            <li><span>9</span></li>
-            <li><span>10</span></li>
-            <li><span>11</span></li>
-        </ul>
-    </div> -->
 </body>
 </html>

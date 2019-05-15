@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="drawing" width="300" height="300">A drawing of something</canvas>
+
+    <script type="text/javascript" defer="defer">
+        var drawing = document.getElementById("drawing");
+        if (drawing.getContext) {
+            var context = drawing.getContext("2d");
+            // context.fillStyle="#ff0000";  //填充
+            // context.fillRect(10,10,50,50); //开始左边，宽高
+            // context.fillStyle="rgba(0,0,255,0.5)";
+            // context.fillRect(30,30,50,50);
+            // context.clearRect(40,40,10,10);
+
+            // context.strokeStyle="#ff0000";  //描边
+            // context.strokeRect(10,10,50,50);
+            // context.strokeStyle="rgba(0,0,255,0.5)";
+            // context.strokeRect(30,30,50,50);
+            // context.lineWidth=4;
+            // context.lineCap="round";
+            // context.lineJoin="bevel";
+
+            //时钟表盘
+            // context.beginPath();
+            // context.arc(100,100,99,0,2*Math.PI,false); //外圆
+            // context.moveTo(194,100);
+            // context.arc(100,100,94,0,2*Math.PI,false);//内圆
+            // context.translate(100,100);
+            // context.moveTo(0,0);
+            // context.lineTo(0,-85);//分针
+            // context.moveTo(0,0);
+            // context.lineTo(-65,0);//时针
+            // context.stroke();
+
+            // context.font="bold 14px Arial";
+            // context.textAlign="center";
+            // context.Baseline="middle";
+            // context.fillText("12",0,-80);
+
+            // context.textAlign="start";
+            // context.fillText("12",0,-60);
+
+            // context.textAlign="end";
+            // context.fillText("12",0,-40);
+
+            // isPointInPath(x,y);  //路径关闭之前确定画布上的某一点是否位于路径上
+
+            //绘制图像
+            // var image = document.images[0];
+            // context.drawImage(image, 10, 10);
+
+            //阴影
+            // context.shadowOffsetX=5; //x轴偏移量
+            // context.shadowOffsetY=5; //y轴偏移量
+            // context.shadowBlue=4;    //模糊像素
+            // context.shadowColor="rgba(0,0,0,0.5)"; //阴影颜色
+            // context.fillStyle="#ff0000";
+            // context.fillRect(10,10,50,50);
+            // context.fillStyle="#0000ff";
+            // context.fillRect(30,30,50,50);
+
+            // 线性渐变
+            // function createLinearGradient(context,x,y,width,height){
+            //     return context.createLinearGradient(x,y,x+width,y+height);
+            // }
+            // var gradient=createLinearGradient(context,30,30,50,50);
+            // gradient.addColorStop(0,'white');
+            // gradient.addColorStop(1,'black');
+            // context.fillStyle="#ff0000";
+            // context.fillRect(10,10,50,50);
+            // context.fillStyle=gradient;
+            // context.fillRect(30,30,50,50);
+
+            // 径向渐变
+            // var gradient=context.createRadialGradient(55,55,10,55,55,25);
+            // gradient.addColorStop(0,'white');
+            // gradient.addColorStop(1,'black');
+            // context.fillStyle="#ff0000";
+            // context.fillRect(10,10,50,50);
+            // context.fillStyle=gradient;
+            // context.fillRect(30,30,50,50);
+
+            // 模式
+            // var image = new Image();
+            // image.setAttribute("crossOrigin", "Anonymous");
+            // image.src =
+            //         "https://ucarecdn.com/c5b7dd84-c0e2-48ff-babc-d23939f2c6b4/-/preview/240x240/-/quality/best/";
+            // var imageData, pattern;
+            // image.onload = function () {
+            //     pattern = context.createPattern(image, "repeat"); //第一个参数可以是<video>,<canvas>
+            //     context.fillStyle = pattern;
+            //     context.fillRect(10, 10, 230,170);
+            //     imageData = context.getImageData(10, 10, 230, 170);
+
+
+            //     var data = imageData.data;
+            //     var red, green, blue, alpha, average;
+            //     for (var i = 0; i < data, length; i += 4) {
+            //         red = data[i];
+            //         green = data[i + 1];
+            //         blue = data[i + 2];
+            //         alpha = data[i + 3];
+            //         average = Math.floor((red + green + blue) / 3);
+            //         data[i] = average;
+            //         data[i + 1] = average;
+            //         data[i + 2] = average;
+            //     }
+            //     imageData.data = data;
+            //     context.putImageData(imageData,10,180);
+            // }
+            
+            // 合成
+            // context.fillStyle="red";
+            // context.fillRect(10,10,50,50);
+
+            // context.globalAlpha=0.5;//透明度
+            // context.globalCompositeOperation="xor";   //先绘制的图像与后绘制的图像的关系
+            // context.fillStyle="green";
+            // context.fillRect(30,30,50,50);
+            
+                                 
+        }
+    </script>
+</body>
+
+</html>

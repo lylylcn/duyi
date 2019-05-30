@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        svg{
+            border:1px solid black;
+        }
+        path{
+            fill:transparent;
+            stroke:green;
+            stroke-dasharray: 20px;  /*间隔*/
+            stroke-dashoffset: 10px; /*缩进*/
+        }
+        .div{
+            position: absolute;
+            left:0;
+            top:100px;
+            width:100px;
+            height:100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        svg 放大之后不失真
+         应用场景
+            1.图表
+            2.图标icon
+            3.动效
+            4.矢量图
+         样式属性
+            1.fill 填充
+            2.stroke 描边
+            3.stroke-width 
+            4.stroke-opacity/fill-opacity
+            5.stroke-linecap
+            6.strake-linejoin 两条线连接的效果
+        常用标签 line rect circle ellipse polyline polygon path 
+        指令 m l L H h V v z A
+        二次贝塞尔曲线
+        三次贝塞尔曲线
+
+        getTotalLength 获取路径总长度
+        getPointAtLength(x) 获取路径上距离起始点距离x长度的点的坐标
+        viewBox
+
+        requestAnimationFrame 解决js定时器的缺点 时间延迟 不连贯
+         1.页面刷新前执行一次
+         2.cancelAnimationFrame
+         4.用法与setTimeout类似
+         5.兼容性
+        
+        
+         客户端存储
+            storage 
+               localStorage.key=value 
+               localStorage 永久存储，除非手动删除 
+               作用域 受到文档源的限制
+               sessionStorage.key=name
+               sessionStorage 临时存储，窗口关闭删除 
+               作用域 受到文档源和窗口的限制
+               setItem() getItem() removeItem() clear()
+            cookie
+                1.设置cookie存储时间 
+                    document.cookie='name=scott;max-age=1000'
+                2.expires 当前时间加上保存时间
+                    var timestamp = (new Date()).getTime()+1000;
+                    var expires = new Date(timestamp).toGMTString();
+                    document.cookie='name=scott;expires='+expires;
+                3.domain
+                4.path
+            worker
+                var worker = new Worker('worker.js');
+                worker文件必须和主文件满足同源策略
+                worker.js文件里面添加onmessage事件
+                close()worker.js自己关闭连接
+                worker.terminate() 请求连接的文件关闭连接
+                特性
+                1.importScripts('')
+                2.作用域globalWorkerScope 
+                 可以继续生成worker对象（chrome暂时不支持，浏览器支持情况差）
+                 navigation
+                 XMLHttpRequest
+                 setTimeout/serInterval
+
+
+            geolocation 
+                window.navigation.geolocation
+                1.getCurrentPosition(s[success回调必须],e[error回调],p[options  enableHighAccuracy是否需要高精度位置默认false,timeout单位ms请求超时时间默认infinity，maximumAge单位ms位置过期时间默认0即无条件获取心地理信息]) 获取当前的位置信息
+                    失败code=1 用户拒绝， code=2 获取不到 ，code=3 连接超时
+                2.watchPosition(fn) 注册监听，监视位置变化，和1参数一样
+                3.clearWatch() 清除位置监视
+                devicemotion监听加速度变化 包含以下属性
+                    1.accelerationIncludingGravity 重力加速度  包括重心引力，x轴夹克9.8，在x，y方向上的值两者相同
+                    2.acceleration 重力加速度 （需要陀螺仪支持）
+                    3.rotationRate(alpha,beta,gamma) 旋转速率
+                    4.interval  获取的时间间隔
+                    以上属性均为只读属性
+                deviceorientation 监听设备在方向上的变化 包含以下属性
+                    1.alpha  z轴
+                    2.beta   x轴
+                    3.gamma  y轴
+                    4.webkitCompassHeading 正北方向0度
+                    5.webkitCompassAccuracy 指北针的精度，表示差值度数
+
+            多媒体
+                audio音频
+                <audio src=""></audio>
+                video视频
+                <video src=""></vedio>
+                
+                controls控件 autoplay自动播放 preload=(none/meradata/auto)预加载
+                loop是否循环播放
+                poster<video特有>
+            
+            drag&drop
+                常用于各种拖动操作中
+                创建可拖动元素 
+                <div id='drag' draggable=true></true>
+                拖拽相关的事件
+                dragstart 被拖拽元素 开始拖拽时触发
+                dragend  被拖拽元素 拖拽完成时触发
+                dragenter 目标元素 拖拽元素进入目标元素
+                dragover  目标元素  拖拽元素在目标元素上移动
+                drop      目标元素 被拖拽的元素在目标元素上同时鼠标放开触发事件
+                阻止dragover的默认行为才会触发drop事件
+                DragEvent事件对象
+                传值 e.dataTransfer.setData("data",e.target.id);
+                取值 e.dataTransfer.getData("data");
+                使用拖拽上传文件
+                ele.addEventListener('dragover', function(e){
+                    e.preventDefault();
+                },false);
+                ele.addEventListener('drop',function(e){
+                    e.preventDefault();
+                    console.log(e);
+                    var dt = e.dataTransfer;
+                    var files = dt.files;
+                    console.log(files);
+                },false)
+            
+            
+            FileReader方法
+                abort()终止读取
+                readAsBinaryString(file)将文件读取为二进制编码
+                readAsDataURL(file) 将文件读取为DataURL编码
+                readAsText(file,[encoding]) 将文件读取为文本
+                readAsArrayBuffer(file)将文件读取为arraybuffer
+                通过不同的方式读取文件
+
+            FileReader事件
+                onloadstart读取开始时触发
+                onprogress读取中
+                onloadend 读取完成触发，无论成功或失败
+                onload 文件读取成功完成时触发
+                onabort 中断时触发
+                onerror 出错时触发
+                获取读取的结果
+                fr.onload = function(){
+                    this.result;
+                }
+
+            
+            Web Socket
+                WebSocket对象提供了一组API，用于创建和管理WebSocket连接以及通过连接发送和接收数据
+                Websocket其实是一个新协议，跟HTTP协议基本没有关系，只是为了兼容现有的浏览器的握手规范，借用了HTTP的协议来完成握手
+                HTTP协议中，服务端不能主动联系客户端，只能由客户端发起，WebSoket服务器和客户端均可主动发送数据
+                建立连接握手
+                当web应用程序调用new WebSocket(url)接口时，浏览器就开始了与地址为url的WebServer建立握手连接的过程
+                1.浏览器与WebSocket服务器通过TCP握手建立连接，如果这个建立连接失败，那么后面的过程就不会执行，web应用程序将收到错误消息通知
+                2.在TCP建立连接成功后，浏览器通过http协议传送WebSocket支持的版本号，协议的字版本号，原始地址，主机地址等等一些列字段给服务器端
+                3.WebSocket服务器收到浏览器发送的请求后，如果数据包数据和格式正确，客户端和服务器端的协议版本号匹配等等，就接受本次握手连接，并给出相应得数据回复，同样回复得数据包也是采用http协议传输
+                4.浏览器收到服务器回复得数据包后，如果数据包内容，格式都没有问题的话，就表示本次连接成功，触发onopen消息，此时web开发者就可以在此时通过send接口向服务器发送数据。否则，握手连接失败，Web应用程序会收到onerror消息，并且能知道连接失败的原因
+                Web Socket事件
+                open 建立连接触发
+                message 客户端从服务器接收数据是触发
+                error 连接发生错误时触发
+                close 连接被关闭时触发
+                优点：客户端与服务器端都可以主动传送数据给对方；不用频率创建TCP请求及销毁请求，减少网络带宽资源的占用，同时也节省服务器资源
+                
+
+
+        <svg width=500 height=500>
+            <line x1=100 y1=100 x2=200 y2=200></line>
+            <rect x=200 y=100 width=100 height=100 rx=10 ry=30></rect> rx ry表示圆角
+            <circle r=50 cx=220 cy=50></circle>
+            <ellipse rx=100 ry=50 cx=100 cy=200></ellipse>  椭圆
+            <polyline points="10 20, 15 25"></polyline> 折线
+            <polygon points="10 20, 15 25"></polygon> 多边形
+            <text x=125 y=320>hello</text>
+            <path d='m 100 100 l 100 100' />   l相对位置
+            <path d='m 200 100 L 300 200' />      L绝对位置
+            <path d='m 100 100 H 200 V 150 Z' />  H水平绝对位置 h水平相对位置 V水平绝对位置 v水平相对位置  Z闭合不区别大小写
+            <path d='m 100 100 A 150 100 0 1 1 200 200' />   起始位置 A 弧的x y 旋转角度 大小圆弧  起点到终点顺逆时针  终止位置
+            <path d='m 100 200 Q 200 100 300 300 T 500 100' />   二次贝塞尔曲线 不写T就是三个点构成，写T就是以第三个点为对称点做第二个点的对称点并连接，再连接第四个点，共5个点
+            <path d='m 0 200 C 100 100 200 100 300 400 S 500 500 400 0' />     三次贝塞尔曲线 
+        </svg>
+     -->
+    <div id="item"></div>
+    <!-- <audio src="../地星撞海星.wav" autoplay controls loop></audio>
+    <video src="../白宇 - WAKE ME UP.mp4"  controls poster="../../../图片/白宇/1.jpg"></video> -->
+     
+    <!-- <audio id="music">
+        <source src="" type="">
+        <source src="" type="">
+    </audio> -->
+     
+    <!-- <button id="play">PLAY</button>
+    <button id="pause">PAUSE</button>
+    <button id="load">RELOAD</button>
+    <button id="up">音量+</button>
+    <button id="down">音量-</button> -->
+
+    <script src="../../demo/tools/tools.js"></script>
+    <script>
+        // function suc(pos){
+        //     console.log('success');
+        //     console.log(pos);
+        // }
+        // function err(err){
+        //     console.log('error');
+        //     console.log(err);
+        // }
+        // var options={
+        //     enableHighAccuracy: true,
+        //     timeout: 10
+        // }
+        // window.navigator.geolocation.getCurrentPosition(suc,err,options);
+        
+        
+        // window.addEventListener('devicemotion', function(e) {
+        //     item.innerHTML=e.accelerationIncludingGravity.x+'-'+e.accelerationIncludingGravity.y+'-'+e.accelerationIncludingGravity.z;
+        // })
+        
+
+        // var SHAKE_THRESHOLD = 800;
+        // var last_updata = 0;
+        // var x, y, z, last_x=0, last_y=0, last_z=0;
+        // function deviceMotionHeadler(eventData){
+        //     var acceleration = eventData.accelerationIncludingGravity;
+        //     var curTime = new Date().getTime();
+        //     if(curTime - last_updata > 300){
+        //         var diffTime = curTime - last_updata;
+        //         last_updata = curTime;
+        //         x = acceleration.x;
+        //         y = acceleration.y;
+        //         z = acceleration.z;
+
+        //         var speed = Math.abs(x + y + z - last_x -last_y - last_z) / diffTime * 10000;
+        //         if(speed > SHAKE_THRESHOLD){
+        //             alter('shake!');
+        //             var div = documents.createElement('div');
+        //             div.innerText = 'hahaha';
+        //             document.body.appendChild(div);
+        //         }
+        //         last_x = x;
+        //         last_y = y;
+        //         last_z = z;
+        //     }
+        // };
+        // window.addEventListener('devicemotion',deviceMotionHeadler,false);
+
+
+
+        // var audio = new Audio('../地星撞海星.wav');
+        // audio.controls="controls";
+        // audio.autoplay="autoplay";
+        // document.body.appendChild(audio);
+        // // audio,video没有onload事件
+        // window.onload = function() {
+        //     console.log(audio.currentSrc);
+        // }
+        // // play()方法 开始播放
+        // play.onclick = function() {
+        //     audio.play();
+        // }
+        // // pause()方法 暂停播放
+        // pause.onclick = function() {
+        //     audio.pause();
+        // }
+        // // load()方法 重新加载音频或视频
+        // load.onclick = function() {
+        //     audio.load();
+        // }
+
+        // // volume属性 播放声音[0,1]; 超出范围报错
+        // up.onclick = function() {
+        //     if(audio.volume <= 0.9)
+        //     audio.volume = (parseInt(audio.volume*10)+1)/10;
+        // }
+        // down.onclick = function() {
+        //     if(audio.volume >= 0.1)
+        //     audio.volume = (parseInt(audio.volume*10)-1)/10;
+        // }
+        // playbackRate 播放速率 1为正常播放 大于1表示快进 0~1表示慢放 小于0表示回放
+        // currentTime 播放时间 不赋值表示查询，赋值表示设置
+        // duration 返回总时长
+        // 以下三个属性都是TimeRange对象，每个对象都有一个length属性<表示当前的一个时间段>以及start()<返回当前时间段的起始时间点> end()<返回当前时间段的结束时间点>方法
+        // played 返回已经播放的时间段
+        // buffered 返回已经缓冲的时间段
+        // seekable 返回用户可以跳转的时间段
+        // 以下三个属性用来查询媒体播放状态
+        // pause true表示播放器暂停
+        // seeking true表示播放器正在调到一个新的播放点
+        // ended true 播放器播放完媒体并且停下来
+        // 事件
+        // play 开始播放触发
+        // pause 暂停播放触发
+        // loadedmetadata 浏览器获取完媒体的元数据触发  先于loadeddata事件触发
+        // loadeddata 浏览器已经加载完当前帧数据，准备播放时触发
+        // ended 当前播放结束后触发
+
+
+        
+        var socket = new WebSocket('ws://echo.websocket.org');
+        socket.onopen = function () {
+            socket.send('hello');
+        }
+        socket.onmessage = function (e) {
+            console.log(e);
+            console.log(e.data);
+            socket.close();
+        } 
+        socket.onclose = function () {
+            console.log('close');
+        }
+
+
+
+    </script>
+
+</body>
+</html>

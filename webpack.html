@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        模块化 ：具有相同属性和行为的事物的集合
+        特点：独立，完整，依赖关系
+        1.函数 
+        2.对象  
+        3.匿名函数  返回对象
+        4.依赖 
+
+        commonJs<服务器端> ：每个文件就是一个模块，内部定义的变量是属于这个模块的，不会对外暴露；该规范最初用在服务器端的node上，前端的webpack也是对CommonJs原生支持
+        核心思想：通过require方法同步加载所要依赖的其他模块，然后通过exports或者module.exports来导出需要暴露的接口
+        但是浏览器不兼容commonJs ，原因是浏览器缺少module，exports，require，global四个环境变量，如要使用需要工具转换
+        commonJs采用同步加载不同的模块文件，适用于服务器端的。因为模块文件都存放在服务器的各个硬盘上，读取加载时间快，适合服务器端，不适应浏览器。
+
+        AMD<浏览器端> 异步加载模块，允许指定回调函数，等模块异步加载完成后即可调用函数
+        AMD 产出作品------》 require.js
+        核心思想：通过define来定义一个模块，然后使用require来加载一个模块
+        依赖前置，提前加载依赖
+
+        CMD异步加载，就近加载，按需加载
+        CMD产出作品-----》rea.js
+
+        ES6 自带模块化,可以使用import关键字引入模块,通过export关键字导出模块.目前ES6不能在浏览器中执行,所以,我们只能通过babel将不支持的import编译为当前受到广泛支持的require
+
+
+     -->
+     <script src="../src/require.js" data-main="mian.js"></script>
+     <script src="../src/sea.js"></script>
+     <script>
+        //  commonJs
+        //  index.js
+            // var modules = require('module.js');
+            // modules.aa('hello');
+        // module.js
+            // module.exports = {
+            //     aa: function (str) {
+            //         console.log(str);
+            //     }
+            // }
+            
+        // AMD
+        // 配置 
+            // require.config({
+            //     paths: {
+            //         'jquery':'../jq/jquery-1.8.3-min',
+            //         'math':''
+            //     }
+            // })
+        // main.js
+            // require(['jquery','math'], function ($, math){
+
+            // });
+        // math.js
+            // define(function () {
+            //     function add(a,b) {
+            //         return a + b; 
+            //     }
+            //     return {
+            //         add : add
+            //     }
+            // });
+
+        // CMD
+        // 配置
+            // seajs.config({
+            //     alias: {
+            //         'math': 'module1.js'
+            //     }
+            // })
+        // index.js
+            // seajs.use('main.js');
+        // main.js
+            // define(function(require,exports,module) {
+            //     var module = require('module1.js');
+            //     console.log(module1);
+            // })
+        // module1.js
+            // define(function (require, exports,module) {
+            //     var arr = [1,2,3];
+            //     exports.module = arr; //导出 
+            // })
+
+        // ES6
+        // import tool from '../jq/jquery-3.2.1'
+        // export class show { //导出
+        //     constructor() {
+        //         this.age = 18;
+        //     }
+        //     showName() {
+        //         return this.age;
+        //     }
+        // }
+     </script>
+</body>
+</html>

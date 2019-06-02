@@ -9,7 +9,8 @@
 
 module.exports = function() {
     var obj = {
-        hello:"hello"
+        hello:"hello",
+        a: "123"
     };
     console.log(obj);
     return obj;

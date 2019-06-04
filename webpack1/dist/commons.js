@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{8:function(o,n){o.exports=function(){var o={hello:"hello",a:"123"};return console.log(o),o}}}]);

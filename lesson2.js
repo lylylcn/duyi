@@ -1272,8 +1272,9 @@ function captureThreeNumbers(arr) {
 }
 
 
-
-
+//类数组->数组
+//Array.prototype.slice.call(arrayLike)
+//jQuery.makeArray(obj)
 
 
 

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <script src="../jq/jquery-1.8.3-min.js"></script>
+    <script>
+        // 选择器 
+        //   (1)标签 class id 
+        //   (2)  css选择器
+        //   (3)$("li:first") $("ul>li:eq(2)") $("ul>li:odd/even") 
+        //   (4)filter() has() eq() not() find() is()--true/false
+        //     attr()函数主要依赖的是Element对象的getAttribute()和setAttribute()两个方法。
+        //     prop()函数主要依赖的则是JS中原生的对象属性获取和设置方式。  
+
+        //     因为jQuery认为：attribute的checked、selected、disabled就是表示该属性初始状态的值，property的checked、selected、disabled才表示该属性实时状态的值(值为true或false)
+
+        //  pre()上一个兄弟节点 next()下一个兄弟节点
+        //  index() 返回节点下标
+        // addClass() removeClass() 参数可以是类名，也可以是函数
+        // toggleClass() 有就删除没有就加上
+
+        // A.insertBefor(B) A插入到B中
+        // B.before(A)  A在 B的前面 
+        // A.appendTo(B)  A添加到B的里面 (最后一个)
+        // B.append(A)  A添加到B的里面  (最有一个)
+        // prependTo  prepend (添加到第一个元素前)
+        // remove() detach() 把元素删除后返回
+        // detach() 会把原来绑定的时间也返回，remove()不能返回绑定的事件
+
+        // $('').on('click',对象(字符串表示事件源),function(e){
+        //     e.data==对象 //true
+        // }) 
+        // off('click','事件源',事件处理函数) 解除绑定
+        // one() 绑定事件一次
+        // window.scrollTop()
+        // innerWidth() 获取content+padding 
+        // outerWidth() 获取content+padding+border 
+        // outerWidth(ture) 获取content+padding+border+margin
+        // parent() 返回直接父元素
+        // offsetParent() 最近的有定位的父级
+        // parents() 所有指定的父级
+        // closest() 必须传参 查找最近的祖先节点
+        // val()  ==== value
+        // each(function(index,elem) {}) 循环遍历
+        // end() 回退操作
+        // siblings() 当前元素的所有兄弟节点
+        // prevAll()  当前元素上面的所有兄弟节点
+        // nextAll()  当前元素下面的所有兄弟节点
+        // prevUntil(a) 当前与元素到a (掐头去尾取中间),可以是jquery对象或dom
+        // clone() 克隆节点 没有克隆事件
+        // clone(true) 克隆节点 克隆事件
+        // wrap(a) 当前元素包裹进a
+        // wrapInner(a) 把当前元素内的所有东西都包裹进a
+        // wrapAll() 包裹所有的元素 会破环dom元素(将元素提取包裹,其他元素不包裹)
+        // unwrap()  解除包裹
+        // A.add(B) 集中操作 A,B同时进行操作
+        // slice()  截取 算头不算尾
+        // empty() 
+        // serialize() 串联表单数据成字符串
+        // serialize() 串联数据成数组
+
+        // animate()
+        // stop() 可以传入两个参数(bool,bool) 
+        // 第一个参数 是否停止后续所有运动 false 不停止,继续运动 true 停止后续所有运动
+        // 第二个参数 是否立即到达当前目标点 false 不到达 true 到达
+        // delay() 延迟
+        // slideUp() 向上滑动消失
+        // slideDown() 向下滑动出现
+        // slidetoggle() 有就消失没就出现
+        // tirggle() 触发事件 会冒泡
+
+        // $('').html(); 实例方法
+        // $.type(arr); 定义在jQurey函数上的 是工具方法可以检测类型
+        // $.trim(str) 去除字符串两边空格
+        // var fn=$.proxy(函数,d对象)  fn() 改变this指向,返回函数
+        // var wquery = $.noConflict() 防止冲突
+        // $.makeArray() 将类数组转换成数组
+
+        // $.extend() 拓展工具方法或实例方法，合并对象，浅拷贝 参数传true深拷贝
+        // $.extend({
+        //     aa:function(){};
+        // })
+        // $.extend(obj1, obj2);
+        // $.extend(true, obj1);
+        // $.extend(true, obj1, obj2);
+        // $.aa();
+        // $.fn.entend() $.fn = $.prototype
+        // var cb=$.Callbacks(); //参数 once uniqu memory Stoponfalse
+        // ca.add(fn1,fn2,fn3);
+        // cb.fire()
+        // $.Deferred() 有状态的callback
+        // 触发函数 resolve reject notify
+        // $.when() 只要有一个是false就会执行fail() ,都可以才可以执行done()函数 
+
+
+        (function(global, factory) {
+            factory(global);
+        }(typeof window !== 'undefined' ? window : this, function(window) {
+            window.jQuery = window.$ = jQuery;
+
+            function jQuery(selector) {
+                return new jQuery.prototype.init(selector);
+            }
+            jQuery.prototype = {
+                init: function(selector) {
+                    var dom = document.getElementById(selector);
+                    this[0] = dom;
+                    this.length = 1;
+                    return this;
+                },
+                css: function() {
+                    return this;
+                },
+                html: function() {
+                    return this;
+                }
+            }
+            jQuery.prototype.init.prototype = jQuery.prototype; //改变init原型指向
+        }));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1.let const块级作用域
+            let 不提升，不能重复声明，块级作用域
+            const 声明常量不可改变 不提升，不能重复声明，块级作用域 
+            变量的结构赋值  实质：模式匹配
+            1.数组的解构赋值
+            let [a, b, c] = [1, 2, 3]
+            let [a, b] = [1] 结构失败
+            let [a, b] = [1, 2, 3] 不完全结构
+            let [x = 10] = [20] ---》 x=20
+            let [x = 10] = [undefined] ---》 x=10
+            let [x = 10] = [null] ---》 x=null
+            只有模式匹配的值时undefined时，才执行默认值
+            2.对象的解构赋值
+            let {bar, foo} = {bar: 123, foo: 234} bar=123 foo=234
+            let {bar, foo} = {foo: 234, bar: 123} bar=123 foo=234
+            let {bar} = {foo: 123, bar: 234};     bar=234
+            let {foo: bar} = {foo: 123};
+            3.其他类型的解构赋值
+            4.使用场景 
+            swap   [a, b] = [b, a]
+        -->
+     <script>
+         let [x = 10] = [20];
+         let {foo: bar} = {foo: 123}; 
+         let {toString: s} = false; 
+         let a = 1, b = 2;
+         console.log(a, b);
+         [a, b] = [b, a];
+         console.log(a, b);
+     </script>
+</body>
+</html>

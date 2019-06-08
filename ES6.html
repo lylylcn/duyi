@@ -28,15 +28,363 @@
             3.其他类型的解构赋值
             4.使用场景 
             swap   [a, b] = [b, a]
+        2.字符串的扩展
+            1.模板字符串  ----》 增强的字符串  在字符串中添加变量（表达式）
+            var str = `` 可以直接换行
+            `$()`
+            2.标签模板   实质：函数调用的特殊形式
+            应用：过滤HTML字符串
+        3.函数的扩展
+            1.函数参数的默认值
+            2.参数作用域 
+        4.REST参数扩展运算符
+            function fn(...arr) {}
+        5.箭头函数 var f = num =>num
+            注意事项 this指向
+                    没有arguments，可以用...argus
+            嵌套箭头函数
+        6.数组的扩展
+            Array.from();
+            Array.of();
+            数组实例的方法copyWithin()Array.prototype.copyWithin(target, start=0, end=this.length)
+                        fill(value,start,end) 用一个固定值填充一个数组中从起始索引到终止索引内的全部元素
+                        entries()返回一个新的Array Iterator对象，该对象包含数组中每个索引的键/值对
+                        keys() 方法返回一个包含数组中每个索引键的Array Iterator对象
+                        values()返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值
+                        includes() 来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false
+                        find(可以是回调函数)返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined
+                        findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1
+
+        7.对象的扩展 
+            属性的简洁表示法以及属性名表达式
+            属性的可枚举性以及属性的遍历
+                Object.is() 方法判断两个值是否是相同的值。=== 可以将
+                Object.assign(target,sourse) 将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。Object.assign(target, source); 改变target并返回target
+                Object.keys() 返回一个由一个给定对象的自身可枚举属性组成的数组
+                Object.values() 返回一个给定对象自身的所有可枚举属性值的数组
+                Object.entries() 返回一个给定对象自身可枚举属性的键值对数组
+            对象的扩展运算符
+        8.class 类声明不可以提升
+            constructor, 实例属性，实例方法
+            this指向 箭头函数没有自己的this，他的this是继承来的，默认指向在定义他时所在的对象
+            静态属性，静态方法
+            class的继承
+                extends
+                super
+                1.子类__proto__表示构造函数的继承
+                2.子类__proto__.prototype表示方法的继承
+        9.promise对象
+            含义
+            实例方法:
+            Promise.prototype.then
+            Promise.all(p1, p2, p3) 全部成功才能触发成功
+            Promise.race(p1, p2, p3) 只要有一个成功就能成功
+            三种状态
+            pending 就绪状态
+            resolved 成功状态
+            rejected 失败状态
+        10.fetch --- 新一代的ajax
+
         -->
      <script>
-         let [x = 10] = [20];
-         let {foo: bar} = {foo: 123}; 
-         let {toString: s} = false; 
-         let a = 1, b = 2;
-         console.log(a, b);
-         [a, b] = [b, a];
-         console.log(a, b);
+        //  let [x = 10] = [20];
+        //  let {foo: bar} = {foo: 123}; 
+        //  let {toString: s} = false; 
+        //  let a = 1, b = 2;
+        //  console.log(a, b);
+        //  [a, b] = [b, a];
+        //  console.log(a, b);
+        //  var str = `i
+        // am
+        // girl`;
+        // var obj = {
+        //     age: 18,
+        //     height: 100,
+        //     name: "xiaoming"
+        // }
+        // var {age, height, name} = obj;
+        // var str1 = 'name:' + name + ' age:' + age + ' height' + height;
+        // var str2 = `name: ${name} age: ${age} height: ${height}`;
+        // var x = 3, y = 5;
+        // var str3 = `$(x) + $(y) = $(x + y)`;
+
+        // var name = 'me', where = 'bj';
+        // function show() {
+        //     console.log(arguments);
+        // }
+        // show `hello ${name}, welcome to ${where}`;
+        //放注入js
+        // var name = '<script>alter("aaa")<\/script>';
+        // safeHTML `<p>${name} welcome</p>`
+        // function safeHTML(data) {
+        //     console.log(data,arguments);
+        //     var str = data[0];
+        //     for(let i=1; i<arguments.length; i++){
+        //         var arg = String(arguments[i]);
+        //         str += arg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        //         str += data[i];
+        //     }
+        //     console.log(str);
+        // }
+
+        // function fn(name, age = 5) {
+        //     console.log(name, age);
+        // } 
+        // fn({x: 1, y: 2})
+
+        // function fn(...args) {
+        //     console.log(args);
+        // }
+        // var arr = [1, 2, 3, 4, 5];
+        // fn(1,2,3,4,5);
+        // fn.call(null,...arr);
+        // fn.apply(null,arr);
+
+        // var f = num => num;
+        //等价于
+        // var f1 = function(num) {
+        //     return num;
+        // }
+        // var f2 = (num1,num2) => num1 + num2; 
+        // var f3 = () => ({name:123});
+        // var f4 = num => {
+        //     num ++;
+        //     return num*5;
+        // }
+
+        // var f1 = function(str) {
+        //     return function (){
+        //         return str.split('');
+        //     }
+        // }
+        // var f2 = str => () => str.split('');
+        // console.log(f1('123')());
+        // console.log(f2('123')());
+
+        // var arrlike = {
+        //     '0': 1,
+        //     '1': 2,
+        //     '2': 3,
+        //     length: 3
+        // }
+        // var arr = Array.from(arrlike); //把类数组变数组 
+        // var arr1 = Array.from(obj, function (elem,index) {
+        //     return item + index;
+        // });
+
+        // function typesOf() {
+        //     return Array.from(arguments, item => typeof(item));
+        // }
+        // console.log(typesOf('1', true, undefined, {}, 1, function(){}))
+            
+        // var arr = Array.of(1, 2, 3, 4, 5); //返回数组
+        
+        // var arr = [NaN];
+        // var num = arr.indexOf(NaN);
+        // var num1 = arr.includes(NaN);
+        // console.log(num, num1); //-1 true;
+        
+        // 属性的简洁写法
+        // var foo = '123';
+        // var obj = {foo: foo};
+        // // 相当于
+        // var obj1 = {foo};
+        // function fn(x, y) {
+        //     return {x, y};
+        //     // {x: X, y: y};
+        // }
+        // var obj = {
+        //     age: 12,
+        //     name: 'mm',
+        //     getMag() {
+        //         console.log(this.age,this.name);
+        //     }
+        // }
+        
+        // var obj1 = {name: 123};
+        // var obj2 = {age:12};
+        // var newObj = {...obj1, ...obj2}; 实现对象合并
+
+        // class Person {
+        //     a = 2; //实例属性 
+        //     static b = 2; //静态属性
+        //     static fn() {
+        //         console.log('我是静态方法');
+        //     } 
+        //     constructor() {
+        //         this.name = 'mm';
+        //         // this.showMsg = this.showMsg.bind(this);
+        //         this.showMsg = () => this.print(`my name is $(this.name)`); //实例方法
+        //     }
+        //     // showMsg() {
+        //     //     console.log(this.age, this.name);
+        //     // }
+        //     print() {
+        //         console.log('ddd');
+        //     } 
+        // }
+        // typeof(Person) // function
+        // Person.fn();
+        // Person.a;
+        // var person = new Person();
+        // var {showMsg} = person ;
+        // class表达式
+        // const Person1 = class {
+        //     constructor() {}
+        // }
+        // var p = new class {}  立即执行class
+
+        // class A {
+        //     constructor(name = 'A') {
+        //         this.name = name;
+        //     }
+        //     //定义在原型上
+        //     print() {
+        //         console.log(this.name);
+        //     }
+        // }
+        // class B extends A {
+        //     constructor(name) {
+        //         super(name); //子类必须先调用super()方法，之后才能使用this，子类本身没有this，调用父级的constructor产生this，绑定给自己
+        //         // this.name = 'B';
+        //     }
+        //     print() {
+        //         console.log(this);
+        //         super.print();//super当做对象使用，访问父类原型对象 
+        //         console.log(super.name); // undefined
+        //     }
+        // }
+        // var b = new B('B');
+
+        // console.log(B.__proto__ == A) //true
+        // console.log(B.__proto__.prototype == A.prototype) // true
+        
+        // console.log(Promise);
+        // var p = new Promise(function(resolved, rejected) {
+        //     var num = Math.random() * 100;
+        //     if(num < 50) {
+        //         resolved(num); //pending => resolved
+        //     }else {
+        //         rejected('big'); //pending => rejected
+        //     }
+        // })
+        // p.then(function(data) {
+        //     console.log(data);
+        // },  function(error) {
+        //     console.log(error);
+        // })
+        // p.then(data => data,  error => error)
+        // .then(data => console.log(data + "sec"), error => console.log(error + 'rej'));
+        // p.then(data => new Promise((resolved, rejected) => resolved(123)),  error => error)
+        // .then(data => console.log(data + "sec"), error => console.log(error + 'rej'));
+     
+        // var p1 = new Promise(resolved, rejected)
+        // Promise.all(p1, p2, p3).then(data => console.log(data))
+     
+        // 图片加载
+        // const loadUrl = url => new Promise((rejected,resolved) => {
+        //     let img = new Image();
+        //     img.onload = () => resolved(img);
+        //     img.onerror = () => rejected(new Error('can not load image at' + url));
+        //     img.src = url; 
+        // })
+        // ajax
+        // const myAjax = (type = 'GET', data = {}, url) =>{
+        //     new Promise((resolved,rejected) => {
+        //         $.ajax({
+        //             type,
+        //             url,
+        //             data,
+        //             success:data => resolved(data);
+        //             error: err => rejected(error);
+        //         })
+        //     })
+        // }
+
+        // var p = new Promise(123);
+
+        function myPromise(fn) {
+            if(typeof fn !== 'function') {
+                throw Error(`TypeError: $(fn) is not a function`);
+            }
+            var that = this;
+            this.status = 'pending';
+            this.data = null;
+            this.resolvedArr = [];
+            this.rejectedArr = [];
+            function resolved(data) {
+                setTimeout(function() {
+                    if(that.status === 'pending') {
+                        that.status = 'resolved';
+                        that.data = data;
+                        that.resolvedArr.forEach(fn => fn());
+                    }
+                },0)
+            }
+            function rejected(data) {
+                setTimeout(function() {
+                    if(that.status === 'pending') {
+                        that.status = 'rejected';
+                        that.data = err;
+                        that.rejectedArr.forEach(fn => fn());
+                    }
+                }, 0)
+            }
+            fn(resolved, rejected);
+        }
+        myPromise.prototype.then = function (onResolved, onRejected) {
+            var that = this;
+            if(this.status === 'resolved') {
+                return new myPromise((resolved, rejected) => {
+                    var res = onResolved(that.data);
+                    if(res instanceof myPromise) {
+                        res.then(resolved,rejected);
+                    }else {
+                        resolved(res);
+                    }
+                })
+            }
+            if(this.status === 'rejected') {
+                return new myPromise((resolved, rejected) => {
+                    var res = onRejected(that.data);
+                    if(res instanceof myPromise) {
+                        res.then(resolved,rejected);
+                    }else {
+                        resolved(res);
+                    }
+                })
+            }
+            if(this.status === 'pending') {
+                return new myPromise(function(resolved, rejected) {
+                    that.resolvedArr.push((function(onResolved) {
+                        return function() {
+                            var res = onResolved(that.data);
+                            if(res instanceof myPromise) {
+                                res.then(resolved,rejected);
+                            } else {
+                                resolved(res);
+                            }
+                        }
+                    })(onResolved))
+                    that.rejectedArr.push((function(onRejected) {
+                        return function() {
+                            var res = onResolved(that.data);
+                            if(res instanceof myPromise) {
+                                res.then(resolved,rejected);
+                            } else {
+                                resolved(res);
+                            }
+                        }
+                    })(onRejected))
+                })
+            }
+        }
+        var mp = new myPromise(function(resolved, rejected) {
+            resolved(123);
+        });
+        mp.then(data => console.log(data));
+
+        // fetch(url).then(data => data);
      </script>
 </body>
 </html>

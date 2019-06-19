@@ -85,6 +85,43 @@
             rejected 失败状态
         10.fetch --- 新一代的ajax
 
+        11. Symbol 第七种数据类型 只要是Symbol类型，属性名都是独一无二属性名
+            let s = Symbol();
+            typeof s === "symbol"  true
+            还可以传入参数
+                let s1 = symbol('foo');
+                let s2 = symbol('foo');
+                s1 === s2 false 传入的参数只是对当前Symbol值的描述
+            Symbol值不能与其他类型的值进行运算
+            Symbol显示的转为字符串
+                String(s1)或者s1.toString()
+            Symbol转换为布尔值，但是不能装换为数值
+                let sym = Symbol();
+                Boolean(sym) true
+            获取Symbol的描述
+                s1.description  'foo'
+            由于每个Symbol属性名都独一无二，因此可以作为对象的键值
+                var obj = {
+                    [s1]: 'hello!'
+                }或者 var obj = {}
+                Object.defineProperty(obj, s1, {value: 'hello!'});
+                Symbol值作为对象键值时不能用.运算符
+            该属性不会在for...in ,for...of循环中，
+            也不会被Object.keys(),Object.getOwnPropertyName(),Json.stringfy()返回
+            但是Object.getOwnPropertySymbols(obj)方法可以返回Symbol
+            Reflect.ownKeys()方法可以返回所有类型的键名，包括常规键名以及Symbol键名
+            Symbol.keyFor('foo') 返回一个已经登记的Symbol类型值的key
+            Symbol.for('foo')返回描述为 'foo'的Symbol,如果没有就新建一个
+            内置的Symbol值
+                1.Symbol.hasInstance 对象中的属性，指向一个内部方法，用instanceOf判断是否为某个对象的实例的时候调用该方法
+                2.Symbol.isConcatSpreadable 对象中的属性，该属性等于一个布尔值，表示Array.prototype.concat是否可以展开
+                3.Symbol.specice  指向一个构造函数，创建衍生对象时，会使用该属性
+                4.Symbol.match 指向一个函数，当执行str.match(myobject)时，如果该属性存在，会调用它，返回刚方法的返回值
+                5.Symbol.replace 指向一个方法，当该对象被String.prototype.replace方法调用时，会返回该方法的返回值
+                
+
+
+
         -->
      <script>
         //  let [x = 10] = [20];
@@ -307,6 +344,7 @@
             if(typeof fn !== 'function') {
                 throw Error(`TypeError: $(fn) is not a function`);
             }
+            console.log(111);
             var that = this;
             this.status = 'pending';
             this.data = null;
@@ -314,10 +352,11 @@
             this.rejectedArr = [];
             function resolved(data) {
                 setTimeout(function() {
+                    console.log(444);
                     if(that.status === 'pending') {
                         that.status = 'resolved';
                         that.data = data;
-                        that.resolvedArr.forEach(fn => fn());
+                        that.resolvedArr.forEach(fn1 => fn1());
                     }
                 },0)
             }
@@ -326,16 +365,19 @@
                     if(that.status === 'pending') {
                         that.status = 'rejected';
                         that.data = err;
-                        that.rejectedArr.forEach(fn => fn());
+                        that.rejectedArr.forEach(fn => fn());//function(fn){return fn()};
                     }
                 }, 0)
             }
+            console.log(222);
             fn(resolved, rejected);
+            console.log(333);
         }
         myPromise.prototype.then = function (onResolved, onRejected) {
             var that = this;
             if(this.status === 'resolved') {
                 return new myPromise((resolved, rejected) => {
+                    console.log(555);
                     var res = onResolved(that.data);
                     if(res instanceof myPromise) {
                         res.then(resolved,rejected);
@@ -356,6 +398,7 @@
             }
             if(this.status === 'pending') {
                 return new myPromise(function(resolved, rejected) {
+                    console.log(666);
                     that.resolvedArr.push((function(onResolved) {
                         return function() {
                             var res = onResolved(that.data);
@@ -383,6 +426,7 @@
             resolved(123);
         });
         mp.then(data => console.log(data));
+
 
         // fetch(url).then(data => data);
      </script>

@@ -9,6 +9,18 @@
         [v-cloak] {
             display: none;
         }
+        .red{
+            color: red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic; 
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +42,7 @@
      -->
      <!-- Vue实例控制的这个元素区域，就是V层 -->
     <div id="app">
-        <!-- 使用v-vloak能够解决插值表达式闪烁的问题 -->
+        <!-- 使用v-cloak能够解决插值表达式闪烁的问题 -->
         <p v-cloak>{{ msg }}</p>
         <h4 v-text="msg"></h4>
         <!-- 默认v-text没有闪烁问题 -->
@@ -49,12 +61,27 @@
             .capture 开启捕获
             .self  只有点击当前元素时才触发事件处理函数
             .once  只触发一次处理函数
-
         -->
         <div class="inner" @click.self="divHandler">
             <input type="button" value="点我" @click="btnHandler">
         </div>
         <a href="http://baidu.com" @click.prevent.once='linkClick'>百度一下</a>
+
+        <h4>{{ msg }}</h4>
+        <!-- 使用v-model 可以实现表单和Model中年数据的双向数据绑定-->
+        <!-- v-model 只能运用在表单元素中 -->
+        <!-- 例如： input(radio, text, address, email ....) select  checkbox textarea-->
+        <input type="text" v-model="msg3">
+
+        <!-- 在Vue中使用样式 -->
+        <!-- 第一种使用方法，直接传入一个输组，注意：这里的class需要使用v-bind 做数据绑定 -->
+        <!-- <h1 :class="['red', 'thin']">白宇白宇白宇</h1> -->
+        <!-- 在数组中使用三元表达式 -->
+        <!-- <h1 :class="['red', 'thin', flag?'active':'']">白宇白宇白宇</h1> -->
+        <!-- 在数组中使用对象代替三元表达式，提高代码可阅读性 -->
+        <h1 :class="['red', 'thin', {'active': flag}]">白宇白宇白宇</h1>
+
+
     </div>
      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
      <script>
@@ -68,7 +95,9 @@
             data: {     // data属性中存放的是el中要用的数据
                 msg: 'hello',
                 msg2: "<h1>hello world</h1>",
-                mytitle: "这是一个自己定义的title"
+                msg3: 'hello',
+                mytitle: "这是一个自己定义的title",
+                flag: true
             },
             methods: { // methods属性中当前Vue实例中所有可用的方法
                 show: function () {

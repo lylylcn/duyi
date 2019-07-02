@@ -79,13 +79,82 @@
         <!-- 在数组中使用三元表达式 -->
         <!-- <h1 :class="['red', 'thin', flag?'active':'']">白宇白宇白宇</h1> -->
         <!-- 在数组中使用对象代替三元表达式，提高代码可阅读性 -->
-        <h1 :class="['red', 'thin', {'active': flag}]">白宇白宇白宇</h1>
+        <!-- <h1 :class="['red', 'thin', {'active': flag}]">白宇白宇白宇</h1> -->
+        
+        <!-- 绑定内联样式 -->
+        <h1 :style="{color:'red', 'font-weigth':200}">这是一个h1</h1>
+        <h1 :style="styleObj">这又是一个h1</h1>
+        <h1 :style="[styleObj, styleObj1]">这还是一个h1</h1>
 
+        <span v-for="item in list">{{item}}</span> <br>
+        <span v-for="(item, i) in list">索引值：{{i}} 值是：{{item}}；</span><br>
 
+        <p v-for="user in list2">{{user.id}}, {{user.name}}</p>
+        <p v-for="(user, i) in list2">{{user.id}}, {{user.name}}, 索引值是{{i}}</p>
+        <!-- 注意：在遍历对象身上的键值对的时候，除了有value key ,在第三个参数位置还有一个索引 -->
+        <p v-for="(value, key) in list3">值是：{{value}} 键是：{{key}}</p>
+        <!-- 注意:如果使用v-for迭代数字的话，前面的count值从1开始 -->
+        <p v-for=" count in 10">这是第{{count}}次循环</p>
+
+        <!-- v-for循环中 key属性的使用-->
+        <div>
+            <label>ID:
+                <input type="text" v-model="id">
+            </label>
+
+            <label>Name:
+                    <input type="text" v-model="name">
+            </label>
+
+            <input type="button" value="添加" @click="add">
+        </div>
+        <!-- 注意： v-for 循环的时候， key属性只能使用number获取string -->
+        <!-- 注意： key在使用的时候，必须使用v-bind属性绑定的形式，指定key的值 -->
+        <!-- 注意： 使用v-for训后的是时候，或者一些特殊情况中，如果v-for有问题，必须在使用v-for的同时，指定唯一的字符串/数字 类型 :key值 -->
+        <p v-for="item in list4" :key="item.id">
+            <input type="checkbox">
+            {{item.name}}
+        </p>
+
+        <!-- v-if 和 v-show-->
+        <!-- v-if 每次都会重新删除或者添加  v-show 不会添加删除dom元素 ,只是设置display:none-->
+        <!-- v-if 有较高的切换性能效能消耗 ，v-show有较高的初始渲染消耗 -->
+        <input type="button" value="button" @click='toggle'>
+        <h3 v-if="flag">只是用v-if控制的元素</h3>
+        <h3 v-show="flag">只是用v-show控制的元素</h3>
+
+        <p>{{ msg | msgFormat('hahaha') | test }}</p>
     </div>
-     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
      <script>
-       
+        //自定义全局按键修饰符
+        Vue.config.keyCodes.f2 = 113;
+        // 使用directive()自定义全局的指令
+        // 参数 1 是指令的名称 ,参数 2 是一个对象，这个对象身上有一些指令相关的钩子函数，这些函数可以在特定的阶段，执行相关的操作
+        Vue.directive('focus', {
+            bind: function(el) { //每当指令绑定到元素上的时候，会立即执行 bind 函数，只执行一次
+                //  在每个函数中，第一个参数，永远是e1，表示绑定了指令的那个元素，这个e1 参数，是一个原生的js对象
+                el.focus();
+            },
+            inserted: function() { //表示元素插入到DOM中的时候会执行inserted函数 ，只执行一次
+                
+            },
+            update: function() { //vNode更新的时候会执行update ，可能触发多次
+
+            }
+        })  
+
+        // 全局过滤器  定义语法 , function第一参数是过滤器管道符前面传递过来的数据
+        // Vue.filter('过滤器名称', function(data){
+        //      return data + '123'
+        // })
+        Vue.filter('msgFormat', function(msg, arg) {
+            return msg.replace(/hello/g, arg);
+        })
+        
+        Vue.filter('test', function(msg) {
+            return msg + '=====' ;
+        })
         // 1.导入Vue的包
         // 2.创建一个Vue的实例 
         // 注意：vm对象就是MVVM中的VM调度者
@@ -93,11 +162,38 @@
             el: '#app', //表示当前我们的new的这个Vue实例要控制页面上的哪个区域
             // 这里的data 就是MVVM中的M层，用来保存每个页面的数据
             data: {     // data属性中存放的是el中要用的数据
-                msg: 'hello',
+                msg: 'hello, hello world!!!',
                 msg2: "<h1>hello world</h1>",
                 msg3: 'hello',
                 mytitle: "这是一个自己定义的title",
-                flag: true
+                flag: true,
+                styleObj: {
+                    'color': 'red', 
+                    'font-weigth': 200
+                },
+                styleObj1: {
+                    'fonts-style': 'italic'
+                },
+                list: [1, 2, 3, 4, 5, 6, 8],
+                list2: [
+                    {id:1, name: 'd1'},
+                    {id:2, name: 'd2'},
+                    {id:3, name: 'd3'},
+                    {id:4, name: 'd4'},
+                ],
+                list3:{
+                    id: 1,
+                    name: 'zoey',
+                    gender: 'girl'
+                },
+                id: '',
+                name: '',
+                list4: [
+                    {id: 1, name: '李四'}, 
+                    {id: 2, name: '王五'}, 
+                    {id: 3, name: '周六'}, 
+                    {id: 4, name: '赵七'}
+                ]
             },
             methods: { // methods属性中当前Vue实例中所有可用的方法
                 show: function () {
@@ -111,11 +207,31 @@
                 },
                 linkClick(){
                     console.log('a');
+                },
+                add() {
+                    this.list4.unshift({id: this.id, name: this.name})
+                },
+                toggle() {
+                    this.flag = !this.flag;
+                }
+            },
+            filters: { //定义私有过滤器
+                dateFormat: function(dataStr, pattern=''){
+
+                }
+            },
+            directives: {
+                'fontWeight': {
+                    bind: function() {},
+                    inserted: function() {},
+                    update: function() {}
+                },
+                'fontSize': function(el, binding) { //相当于把代码写到了bind 和 update两个函数里
+                    el.style.fontSize = parseInt(binding.value) + 'px';
                 }
             }
         })
-
-
+     
      </script>
 </body>
 </html>
